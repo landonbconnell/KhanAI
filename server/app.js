@@ -1,18 +1,18 @@
-const Replicate = require("replicate");
-const dotenv = require("dotenv");
-dotenv.config();
+// Require the express module
+const express = require('express')
+const chatGPTRouter = require('./routers/chatGPTRouter')
 
-const replicate = new Replicate({
-  auth: process.env.REPLICATE_API_TOKEN,
+// Create a new express application
+const app = express();
+
+// The port that the server will listen on
+const port = 5000;
+
+// Start the server listening on the specified port
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
 });
 
-const model =
-  "stability-ai/stable-diffusion:db21e45d3f7023abc2a46ee38a23973f6dce16bb082a930b0c49861f96d1e5bf";
-const input = {
-  prompt:
-    "an astronaut riding a horse on mars, hd, dramatic lighting, detailed",
-};
-const output = await replicate.run(model, { input });
+app.use(express.json())
 
-console.log(output);
-// ['https://replicate.com/api/models/stability-ai/stable-diffusion/files/50fcac81-865d-499e-81ac-49de0cb79264/out-0.png']
+app.use('/chatGPT', chatGPTRouter)
