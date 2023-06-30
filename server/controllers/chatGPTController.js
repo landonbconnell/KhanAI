@@ -6,6 +6,7 @@ const configuration = new Configuration({
 });
 
 const openai = new OpenAIApi(configuration);
+const textToSpeech = require('./elevenlabsController');
 
 const promptChatGPT = async (req, res) => {
   
@@ -31,6 +32,7 @@ const promptChatGPT = async (req, res) => {
     });
 
     const data = completion.data.choices[0].message;
+    textToSpeech(data.content);
     res.send(data)
   } catch (error) {
     console.error(error);

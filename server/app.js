@@ -1,7 +1,7 @@
 // Require the express module
 const express = require('express')
 const chatGPTRouter = require('./routers/chatGPTRouter')
-
+const elevenlabsRouter = require('./routers/elevenlabsRouter');
 // Create a new express application
 const app = express();
 
@@ -14,5 +14,5 @@ app.listen(port, () => {
 });
 
 app.use(express.json())
-
+app.use('/api', elevenlabsRouter);
 app.use('/chatGPT', chatGPTRouter)
